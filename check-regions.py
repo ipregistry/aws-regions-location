@@ -5,10 +5,13 @@ import csv
 url = "https://ip-ranges.amazonaws.com/ip-ranges.json"
 response = requests.get(url)
 data = response.json()
-ip_ranges = data["prefixes"]
 
 aws_regions = set()
-for ip_range in ip_ranges:
+for ip_range in data["prefixes"]:
+    if "network_border_group" in ip_range and ip_range["network_border_group"] != "GLOBAL":
+        aws_regions.add(ip_range["network_border_group"])
+
+for ip_range in data["ipv6_prefixes"]:
     if "network_border_group" in ip_range and ip_range["network_border_group"] != "GLOBAL":
         aws_regions.add(ip_range["network_border_group"])
 
