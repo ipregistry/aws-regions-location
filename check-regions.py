@@ -9,8 +9,8 @@ ip_ranges = data["prefixes"]
 
 aws_regions = set()
 for ip_range in ip_ranges:
-    if "region" in ip_range and ip_range["region"] != "GLOBAL":
-        aws_regions.add(ip_range["region"])
+    if "network_border_group" in ip_range and ip_range["network_border_group"] != "GLOBAL":
+        aws_regions.add(ip_range["network_border_group"])
 
 # Load AWS regions from the CSV file
 csv_regions = set()
